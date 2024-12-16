@@ -36,7 +36,7 @@ const char MAIN_page[] PROGMEM = R"=====(
 </div>
 <div id="resp_i">
      <button type="button" onclick="GetJSON('A0', 1, 'resp_i')">LED ON</button>
-</div>
+</div>  
 <div class="w">
    <div class="i_w">
        <div class="c_l">
