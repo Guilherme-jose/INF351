@@ -12,48 +12,38 @@
             'left . right . a b'
             '. down . . . .';
             gap: 10px;">
-            <button style="grid-area: up; width: 50px; height: 50px; background-color: black; color: white;" onmousedown="Up()" onmouseup="ReleaseUp()">Up</button>
-            <button style="grid-area: left; width: 50px; height: 50px; background-color: black; color: white;" onmousedown="Left()" onmouseup="ReleaseLeft()">Left</button>
-            <button style="grid-area: right; width: 50px; height: 50px; background-color: black; color: white;" onmousedown="Right()" onmouseup="ReleaseRight()">Right</button>
-            <button style="grid-area: down; width: 50px; height: 50px; background-color: black; color: white;" onmousedown="Down()" onmouseup="ReleaseDown()">Down</button>
-            <button style="grid-area: a; width: 50px; height: 50px; background-color: red; color: white;" onmousedown="A()" onmouseup="ReleaseA()">A</button>
-            <button style="grid-area: b; width: 50px; height: 50px; background-color: blue; color: white;" onmousedown="B()" onmouseup="ReleaseB()">B</button>
+            <button style="grid-area: up; width: 50px; height: 50px; background-color: black; color: white;" onpointerdown="sendAction('up')" onpointerup="sendAction('releaseUp')">Up</button>
+            <button style="grid-area: left; width: 50px; height: 50px; background-color: black; color: white;" onpointerdown="sendAction('left')" onpointerup="sendAction('releaseLeft')">Left</button>
+            <button style="grid-area: right; width: 50px; height: 50px; background-color: black; color: white;" onpointerdown="sendAction('right')" onpointerup="sendAction('releaseRight')">Right</button>
+            <button style="grid-area: down; width: 50px; height: 50px; background-color: black; color: white;" onpointerdown="sendAction('down')" onpointerup="sendAction('releaseDown')">Down</button>
+            <button style="grid-area: a; width: 50px; height: 50px; background-color: red; color: white;" onpointerdown="sendAction('a')" onpointerup="sendAction('releaseA')">A</button>
+            <button style="grid-area: b; width: 50px; height: 50px; background-color: blue; color: white;" onpointerdown="sendAction('b')" onpointerup="sendAction('releaseB')">B</button>
         </div>
     </div>
 </body>
     
 </body>
 <script>
-    function Up() {
-        console.log("Up button pressed");
-    }
+    var buttonStates = {
+        up: false,
+        left: false,
+        right: false,
+        down: false,
+        a: false,
+        b: false
+    };
+    function sendAction(action) {
+        buttonStates = {
+            up: false,
+            left: false,
+            right: false,
+            down: false,
+            a: false,
+            b: false
+        };
 
-    function ReleaseUp() {
-        console.log("Up button released");
-    }
-
-    function Left() {
-        console.log("Left button pressed");
-    }
-
-    function ReleaseLeft() {
-        console.log("Left button released");
-    }
-
-    function Right() {
-        console.log("Right button pressed");
-    }
-
-    function ReleaseRight() {
-        console.log("Right button released");
-    }
-
-    function Down() {
-        console.log("Down button pressed");
-    }
-
-    function ReleaseDown() {
-        console.log("Down button released");
+        buttonStates[action] = action.includes('release') ? false : true;
+        console.log(buttonStates);
     }
 </script>
 </html>
