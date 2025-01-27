@@ -13,12 +13,12 @@ const char MAIN_page[] PROGMEM = R"=====(
             'left . right . a b'
             '. down . . . .';
             gap: 10px;">
-            <button style="grid-area: up; width: 50px; height: 50px; background-color: black; color: white;" onpointerdown="sendAction('up')" onpointerup="sendAction('releaseUp')">Up</button>
-            <button style="grid-area: left; width: 50px; height: 50px; background-color: black; color: white;" onpointerdown="sendAction('left')" onpointerup="sendAction('releaseLeft')">Left</button>
-            <button style="grid-area: right; width: 50px; height: 50px; background-color: black; color: white;" onpointerdown="sendAction('right')" onpointerup="sendAction('releaseRight')">Right</button>
-            <button style="grid-area: down; width: 50px; height: 50px; background-color: black; color: white;" onpointerdown="sendAction('down')" onpointerup="sendAction('releaseDown')">Down</button>
-            <button style="grid-area: a; width: 50px; height: 50px; background-color: red; color: white;" onpointerdown="sendAction('a')" onpointerup="sendAction('releaseA')">A</button>
-            <button style="grid-area: b; width: 50px; height: 50px; background-color: blue; color: white;" onpointerdown="sendAction('b')" onpointerup="sendAction('releaseB')">B</button>
+            <button style="grid-area: up; width: 50px; height: 50px; background-color: black; color: white;" onclick="sendAction('up')">Up</button>
+            <button style="grid-area: left; width: 50px; height: 50px; background-color: black; color: white;" onclick="sendAction('left')">Left</button>
+            <button style="grid-area: right; width: 50px; height: 50px; background-color: black; color: white;" onclick="sendAction('right')">Right</button>
+            <button style="grid-area: down; width: 50px; height: 50px; background-color: black; color: white;" onclick="sendAction('down')">Down</button>
+            <button style="grid-area: a; width: 50px; height: 50px; background-color: red; color: white;" onclick="sendAction('a')">A</button>
+            <button style="grid-area: b; width: 50px; height: 50px; background-color: blue; color: white;" onclick="sendAction('b')">B</button>
         </div>
     </div>
 </body>
@@ -26,9 +26,34 @@ const char MAIN_page[] PROGMEM = R"=====(
 </body>
 <script>
     function sendAction(action) {
-        fetch(`/${action}`);
-        console.log(action);
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "/" + action, true);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText == "OK") {
+                    enableButtons();
+                }
+            }
+        };
+        disableButtons();
     }
+
+    function disableButtons() {
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function(button) {
+            button.disabled = true;
+        });
+    }
+
+    function enableButtons() {
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function(button) {
+            button.disabled = false;
+        });
+    }
+´´´[=
+
 </script>
 </html>
 )=====";

@@ -34,7 +34,7 @@ void setup() {
   // Conexão Wi-Fi
   Serial.begin(115200);
 
-  //while (!Serial) {}
+  while (!Serial) {}
 
   WiFi.softAP(ssid, password);
   Serial.println("Ponto de acesso criado!");
@@ -72,31 +72,32 @@ void loop() {
   server.handleClient();
   
   lab_loop();
+
 }
-unsigned long lastPressTime = 0;
-const unsigned long debounceDelay = 200;
+
+
 
 void handleButtonPress(const String& button, bool pressed) {
-  unsigned long currentTime = millis();
-  if (currentTime - lastPressTime > debounceDelay) {
-    lastPressTime = currentTime;
-    if (pressed) {
-      Serial.println(button + " button pressed");
-      if (button == "left" || button == "right") {
-        move(button);
-      }
-    } else {
-      Serial.println(button + " button released");
+  if (pressed) {
+    Serial.println(button + " button pressed");
+    if (button == "left" || button == "right") {
+      move(button);
     }
+    if (button == "up" || button == "down") {
+      move(button);
+    }
+  } else {
+    Serial.println(button + " button released");
   }
+  server.send(200, "text/plain", "OK");
 }
 
-void up() { handleButtonPress("Up", true); }
-void down() { handleButtonPress("Down", true); }
+void up() { handleButtonPress("up", true); }
+void down() { handleButtonPress("down", true); }
 void left() { handleButtonPress("left", true); }
 void right() { handleButtonPress("right", true); }
-void releaseUp() { handleButtonPress("Up", false); }
-void releaseDown() { handleButtonPress("Down", false); }
+void releaseUp() { handleButtonPress("up", false); }
+void releaseDown() { handleButtonPress("down", false); }
 void releaseLeft() { handleButtonPress("left", false); }
 void releaseRight() { handleButtonPress("right", false); }
 void a() { handleButtonPress("A", true); }
