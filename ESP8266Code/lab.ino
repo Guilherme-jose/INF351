@@ -23,6 +23,8 @@ char maze[mazeHeight][mazeWidth] = {
 int x = 0, y = 0;
 
 void lab_start() {
+    x = 0;
+    y = 0;
     draw();
 }
 
@@ -57,8 +59,15 @@ void move(String direction) {
 
     if (maze[y][x] == 'E') {
         Serial.println("You have reached the end!");
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+            pixels.setPixelColor(i * 8 + j, pixels.Color(0, 255, 0)); // Green for win
+            }
+        }
+        pixels.show();
+        delay(1000);
+        lab_start();
     } else {
-        Serial.print("Current position: (");
         Serial.print(x);
         Serial.print(", ");
         Serial.print(y);
