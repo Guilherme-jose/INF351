@@ -64,24 +64,6 @@ void setup() {
   # endif
 
   pixels.begin();
-
-
-  // Define the pixel colors for "LABI"
-  uint32_t colors[32] = {
-    pixels.Color(255, 0, 0), pixels.Color(255, 0, 0), pixels.Color(0, 255, 0), pixels.Color(0, 255, 0),
-    pixels.Color(0, 0, 255), pixels.Color(0, 0, 255), pixels.Color(0, 0, 255), pixels.Color(255, 255, 0),
-    pixels.Color(255, 0, 0), pixels.Color(0, 255, 0), pixels.Color(0, 255, 0), pixels.Color(0, 255, 0),
-    pixels.Color(0, 0, 255), pixels.Color(0, 0, 255), pixels.Color(0, 0, 255), pixels.Color(255, 255, 0),
-    pixels.Color(255, 0, 0), pixels.Color(0, 255, 0), pixels.Color(0, 255, 0), pixels.Color(0, 255, 0),
-    pixels.Color(0, 0, 255), pixels.Color(0, 0, 255), pixels.Color(0, 0, 255), pixels.Color(255, 255, 0),
-    pixels.Color(255, 0, 0), pixels.Color(0, 255, 0), pixels.Color(0, 255, 0), pixels.Color(0, 255, 0),
-    pixels.Color(0, 0, 255), pixels.Color(0, 0, 255), pixels.Color(0, 0, 255), pixels.Color(255, 255, 0)
-  };
-
-  // Set the pixel colors using the array
-  for (int i = 0; i < 32; i++) {
-    pixels.setPixelColor(i, colors[i]);
-  }
   
   delay(1000);
 
