@@ -52,7 +52,6 @@ const char MAIN_page[] PROGMEM = R"=====(
             button.disabled = false;
         });
     }
-´´´[=
 
 </script>
 </html>
