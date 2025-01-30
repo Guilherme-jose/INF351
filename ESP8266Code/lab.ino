@@ -23,9 +23,65 @@ char maze[mazeHeight][mazeWidth] = {
 int x = 0, y = 0;
 
 void lab_start() {
+    generateMaze();
     x = 0;
     y = 0;
     draw();
+}
+
+void generateMaze() {
+    // Initialize the maze with walls
+    for (int i = 0; i < mazeHeight; i++) {
+        for (int j = 0; j < mazeWidth; j++) {
+            maze[i][j] = '#';
+        }
+    }
+
+    // Create a path using Depth-First Search (DFS)
+    int stack[mazeHeight * mazeWidth][2];
+    int top = -1;
+    int cx = 0, cy = 0;
+    maze[cy][cx] = ' ';
+    stack[++top][0] = cx;
+    stack[top][1] = cy;
+
+    while (top >= 0) {
+        cx = stack[top][0];
+        cy = stack[top][1];
+        int directions[4][2] = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+        bool moved = false;
+
+        // Shuffle directions to create a random path
+        for (int i = 0; i < 4; i++) {
+            int r = random(4);
+            int temp[2] = {directions[i][0], directions[i][1]};
+            directions[i][0] = directions[r][0];
+            directions[i][1] = directions[r][1];
+            directions[r][0] = temp[0];
+            directions[r][1] = temp[1];
+        }
+
+        for (int i = 0; i < 4; i++) {
+            int nx = cx + directions[i][0] * 2;
+            int ny = cy + directions[i][1] * 2;
+            if (nx >= 0 && nx < mazeWidth && ny >= 0 && ny < mazeHeight && maze[ny][nx] == '#') {
+                maze[cy + directions[i][1]][cx + directions[i][0]] = ' ';
+                maze[ny][nx] = ' ';
+                stack[++top][0] = nx;
+                stack[top][1] = ny;
+                moved = true;
+                break;
+            }
+        }
+
+        if (!moved) {
+            top--;
+        }
+    }
+
+    // Set start and end points
+    maze[0][0] = 'S';
+    maze[mazeHeight - 1][mazeWidth - 1] = 'E';
 }
 
 void lab_loop() {
