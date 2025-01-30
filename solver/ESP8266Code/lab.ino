@@ -81,29 +81,12 @@ void generateMaze() {
 
     // Set start and end points
     maze[0][0] = 'S';
-    maze[mazeHeight - 1][mazeWidth - 1] = 'E';
+    maze[mazeHeight - 2][mazeWidth - 2] = 'E';
 }
 
-void lab_loop() {
-  if (Serial.available()) {
-    String dir = Serial.readString();
-    dir.trim();
-    if (dir == "up" || dir == "down" || dir == "left" || dir == "right") {
-      move(dir);
-      Serial.println(" ");
-      String m = get_leds();
-      for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-          Serial.print(m[i * 8 + j]);
-        }
-      Serial.println();
-    }
-    }
-  }
-}
 
 void move(String direction) {
-    if (direction == "up" && y > 0 && maze[y - 1][x] != '#') {
+    if(direction == "up" && y > 0 && maze[y - 1][x] != '#') {
         y--;
     } else if (direction == "down" && y < mazeHeight - 1 && maze[y + 1][x] != '#') {
         y++;
@@ -124,6 +107,7 @@ void move(String direction) {
         delay(1000);
         lab_start();
     } else {
+        Serial.print("(");
         Serial.print(x);
         Serial.print(", ");
         Serial.print(y);

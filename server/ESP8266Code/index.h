@@ -26,6 +26,7 @@ const char MAIN_page[] PROGMEM = R"=====(
 </body>
 <script>
     function sendAction(action) {
+        setTimeout(enableButtons, 5000);
         var xhttp = new XMLHttpRequest();
         xhttp.open("GET", "/" + action, true);
         xhttp.send();

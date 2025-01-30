@@ -41,6 +41,8 @@ void setup() {
   Serial.print("IP do AP: ");
   Serial.println(WiFi.softAPIP());
 
+  
+
   // Configuração do servidor
   server.on("/", handleRoot);          // Página principal
   server.on("/up", up);                 // Botão de cima
@@ -74,7 +76,6 @@ void loop() {
   server.handleClient();
   
   lab_loop();
-
 }
 
 
