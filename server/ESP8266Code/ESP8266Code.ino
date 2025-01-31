@@ -28,6 +28,12 @@ void handleRoot() {
   server.send(200, "text/html", s); //Send web page
 }
 
+bool leftPressed = false;
+bool rightPressed = false;
+bool upPressed = false;
+bool downPressed = false;
+bool aPressed = false;
+bool bPressed = false;
 
 
 void setup() {
@@ -49,14 +55,9 @@ void setup() {
   server.on("/down", down);             // Botão de baixo
   server.on("/left", left);             // Botão da esquerda
   server.on("/right", right);           // Botão da direita
-  server.on("/releaseUp", releaseUp);   // Soltar botão de cima
-  server.on("/releaseDown", releaseDown); // Soltar botão de baixo
-  server.on("/releaseLeft", releaseLeft); // Soltar botão da esquerda
-  server.on("/releaseRight", releaseRight); // Soltar botão da direita
   server.on("/a", a);                   // Botão A
   server.on("/b", b);                   // Botão B
-  server.on("/releaseA", releaseA);     // Soltar botão A
-  server.on("/releaseB", releaseB);     // Soltar botão B
+  server.on("/stop", stop);     // Soltar botão A
   server.begin();
   Serial.println("Servidor iniciado.");
   
@@ -74,21 +75,48 @@ void setup() {
 
 void loop() {
   server.handleClient();
-  
+  if (leftPressed) {
+    move("left");
+  } else if (rightPressed) {
+    move("right");
+  } else if (upPressed) {
+    move("up");
+  } else if (downPressed) {
+    move("down");
+  } else if (aPressed) {
+    move("a");
+  } else if (bPressed) {
+    move("b");
+  }
   lab_loop();
+  delay(200);
 }
 
 
 
 void handleButtonPress(const String& button, bool pressed) {
   if (pressed) {
+    if (button == "up") {
+      upPressed = true;
+    } else if (button == "down") {
+      downPressed = true;
+    } else if (button == "left") {
+      leftPressed = true;
+    } else if (button == "right") {
+      rightPressed = true;
+    } else if (button == "A") {
+      aPressed = true;
+    } else if (button == "B") {
+      bPressed = true;
+    } else if (button == "stop") {
+      leftPressed = false;
+      rightPressed = false;
+      upPressed = false;
+      downPressed = false;
+      aPressed = false;
+      bPressed = false;
+    }
     Serial.println(button + " button pressed");
-    if (button == "left" || button == "right") {
-      move(button);
-    }
-    if (button == "up" || button == "down") {
-      move(button);
-    }
   } else {
     Serial.println(button + " button released");
   }
@@ -99,11 +127,6 @@ void up() { handleButtonPress("up", true); }
 void down() { handleButtonPress("down", true); }
 void left() { handleButtonPress("left", true); }
 void right() { handleButtonPress("right", true); }
-void releaseUp() { handleButtonPress("up", false); }
-void releaseDown() { handleButtonPress("down", false); }
-void releaseLeft() { handleButtonPress("left", false); }
-void releaseRight() { handleButtonPress("right", false); }
 void a() { handleButtonPress("A", true); }
 void b() { handleButtonPress("B", true); }
-void releaseA() { handleButtonPress("A", false); }
-void releaseB() { handleButtonPress("B", false); }
+void stop() { handleButtonPress("stop", true); }

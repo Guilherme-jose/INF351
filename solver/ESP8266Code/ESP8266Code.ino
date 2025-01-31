@@ -12,6 +12,7 @@
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
+
 void setup() {
   // Conexão Wi-Fi
   Serial.begin(115200);
@@ -30,5 +31,5 @@ void setup() {
 }
 
 void loop() {
-  lab_loop();
+  
 }

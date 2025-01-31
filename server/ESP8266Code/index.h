@@ -13,12 +13,18 @@ const char MAIN_page[] PROGMEM = R"=====(
             'left . right . a b'
             '. down . . . .';
             gap: 10px;">
-            <button style="grid-area: up; width: 50px; height: 50px; background-color: black; color: white;" onclick="sendAction('up')">Up</button>
-            <button style="grid-area: left; width: 50px; height: 50px; background-color: black; color: white;" onclick="sendAction('left')">Left</button>
-            <button style="grid-area: right; width: 50px; height: 50px; background-color: black; color: white;" onclick="sendAction('right')">Right</button>
-            <button style="grid-area: down; width: 50px; height: 50px; background-color: black; color: white;" onclick="sendAction('down')">Down</button>
-            <button style="grid-area: a; width: 50px; height: 50px; background-color: red; color: white;" onclick="sendAction('a')">A</button>
-            <button style="grid-area: b; width: 50px; height: 50px; background-color: blue; color: white;" onclick="sendAction('b')">B</button>
+            <button style="grid-area: up; width: 50px; height: 50px; background-color: black; color: white;" 
+                onpointerdown="sendAction('up')" onpointerup="sendAction('stop')">Up</button>
+            <button style="grid-area: left; width: 50px; height: 50px; background-color: black; color: white;" 
+                onpointerdown="sendAction('left')" onpointerup="sendAction('stop')">Left</button>
+            <button style="grid-area: right; width: 50px; height: 50px; background-color: black; color: white;" 
+                onpointerdown="sendAction('right')" onpointerup="sendAction('stop')">Right</button>
+            <button style="grid-area: down; width: 50px; height: 50px; background-color: black; color: white;" 
+                onpointerdown="sendAction('down')" onpointerup="sendAction('stop')">Down</button>
+            <button style="grid-area: a; width: 50px; height: 50px; background-color: red; color: white;" 
+                onpointerdown="sendAction('a')" onpointerup="sendAction('stop')">A</button>
+            <button style="grid-area: b; width: 50px; height: 50px; background-color: blue; color: white;" 
+                onpointerdown="sendAction('b')" onpointerup="sendAction('stop')">B</button>
         </div>
     </div>
 </body>
